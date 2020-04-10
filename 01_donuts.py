@@ -11,12 +11,14 @@ e donuts(23) retorna 'Number of donuts: many'
 
 def donuts(count):
     if count >= 10:
-        return f'Number of donuts: many'
-    return f'Number of donuts: {count}'
+        msg = f"Number of donuts: many"
+    else:
+        msg = f"Number of donuts: {count}"
+    return msg
 
 
 def test_donuts():
-    assert donuts(4) == 'Number of donuts: 4'
-    assert donuts(9) == 'Number of donuts: 9'
-    assert donuts(10) == 'Number of donuts: many'
-    assert donuts(99) == 'Number of donuts: many'
+    assert donuts(4) == "Number of donuts: 4"
+    assert donuts(9) == "Number of donuts: 9"
+    assert donuts(10) == "Number of donuts: many"
+    assert donuts(99) == "Number of donuts: many"
