@@ -11,11 +11,11 @@ e donuts(23) retorna 'Number of donuts: many'
 
 def donuts(count):
     if count >= 10:
-        t = 'many'
+        qty = 'many'
     else:
-        t = str(count)
+        qty = str(count)
 
-    return f'Number of donuts: {t}'
+    return f'Number of donuts: {qty}'
 
 
 def test_donuts():
