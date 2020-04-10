@@ -11,11 +11,11 @@ e donuts(23) retorna 'Number of donuts: many'
 
 def donuts(count):
     if count >= 10:
-        msg = f"Number of donuts: many"
+        t = 'many'
     else:
-        msg = f"Number of donuts: {count}"
+        t = str(count)
 
-    return msg
+    return f'Number of donuts: {t}'
 
 
 def test_donuts():
