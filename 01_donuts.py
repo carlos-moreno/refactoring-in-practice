@@ -9,13 +9,27 @@ e donuts(23) retorna 'Number of donuts: many'
 """
 
 
-def donuts(count, limit=10):
-    if count >= limit:
-        qty = "many"
-    else:
-        qty = str(count)
+def donuts(count):
+    return f"Number of donuts: {Quantity(count)}"
 
-    return f"Number of donuts: {qty}"
+
+class Quantity:
+    def __init__(self, count, limit=10):
+        self.count = count
+        self.limit = limit
+
+    @property
+    def many(self):
+        return self.count >= self.limit
+
+    def __str__(self):
+        return "many" if self.many else str(self.count)
+
+
+def test_quantity():
+    assert str(Quantity(4)) == "4"
+    assert str(Quantity(9)) == "9"
+    assert str(Quantity(10)) == "many"
 
 
 def test_donuts():
