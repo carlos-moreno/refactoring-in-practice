@@ -9,13 +9,13 @@ e donuts(23) retorna 'Number of donuts: many'
 """
 
 
-def donuts(count):
-    if count >= 10:
-        qty = 'many'
+def donuts(count, limit=10):
+    if count >= limit:
+        qty = "many"
     else:
         qty = str(count)
 
-    return f'Number of donuts: {qty}'
+    return f"Number of donuts: {qty}"
 
 
 def test_donuts():
