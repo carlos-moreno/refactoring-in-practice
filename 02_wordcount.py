@@ -59,7 +59,14 @@ def print_words(filename):
 
 
 def print_top(filename):
-    pass
+    result = {}
+    with open(filename, "r") as f:
+        words = f.readline().lower().split()
+        for word in words:
+            result[word] = result.get(word, 0) + 1
+    result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
+    for k, v in result[:20]:
+        print(f'{k} {v}')
 
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
