@@ -67,50 +67,45 @@ import sys
 #     result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
 #     for k, v in result[:20]:
 #         print(f'{k} {v}')
+from collections import defaultdict
 
 
-def word_count_dict(filename):
-    """Count words from filename
-    :return Dict[word] -> count
-    """
-    d = {}
-    with open(filename) as f:
-        content = f.read()
+def open_(filename):
+    if filename == "-":
+        return sys.stdin
+
+    return open(filename)
+
+
+def read(file):
+    with file as f:
+        return f.read()
+
+
+def split(content):
     content = content.lower()
-    words = content.split()
+    return content.split()
+
+
+def count(words):
+    d = defaultdict(int)
     for w in words:
-        d[w] = d.get(w, 0) + 1
+        d[w] += 1
     return d.items()
 
 
-def print_words(filename):
-    """Prints one per line '<word> <count>' sorted by word for the given file."""
-    word_count = word_count_dict(filename)
-    word_count = sorted(word_count)
-
-    l = []
-    for w, c in word_count:
-        l.append(f"{w} {c}")
-
-    out = "\n".join(l)
-    return out
+def lines(word_count):
+    return "\n".join(f"{w} {c}" for w, c in word_count)
 
 
-def print_top(filename):
-    """Prints the top count listing for the given file."""
-    word_count = word_count_dict(filename)
-    word_count = sorted(word_count, key=lambda t: t[-1], reverse=True)[:20]
-
-    l = []
-    for w, c in word_count:
-        l.append(f"{w} {c}")
-
-    out = "\n".join(l)
-    return out
+def top(word_count, limit=20):
+    return sorted(word_count, key=lambda t: t[-1], reverse=True)[:limit]
 
 
-# A função abaixo chama print_words() ou print_top() de acordo com os
-# parêtros do programa.
+def word_counter(filename, order):
+    return lines(order(count(split(read(open_(filename))))))
+
+
 def main():
     if len(sys.argv) != 3:
         print("Utilização: ./wordcount.py {--count | --topcount} file")
@@ -118,13 +113,14 @@ def main():
 
     option = sys.argv[1]
     filename = sys.argv[2]
-    if option == "--count":
-        print(print_words(filename))
-    elif option == "--topcount":
-        print(print_top(filename))
-    else:
+
+    try:
+        order = {"--count": sorted, "--topcount": top}[option]
+    except KeyError:
         print("unknown option: " + option)
         sys.exit(1)
+
+    print(word_counter(filename, order))
 
 
 if __name__ == "__main__":
