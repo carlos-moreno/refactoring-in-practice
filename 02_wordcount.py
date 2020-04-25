@@ -80,25 +80,33 @@ def word_count_dict(filename):
     words = content.split()
     for w in words:
         d[w] = d.get(w, 0) + 1
-    return d
+    return d.items()
 
 
 def print_words(filename):
+    """Prints one per line '<word> <count>' sorted by word for the given file."""
     word_count = word_count_dict(filename)
-    words = sorted(word_count.keys())
-    for w in words:
-        print(w, word_count[w])
+    word_count = sorted(word_count)
+
+    l = []
+    for w, c in word_count:
+        l.append(f"{w} {c}")
+
+    out = "\n".join(l)
+    return out
 
 
 def print_top(filename):
-    result = {}
-    with open(filename, "r") as f:
-        words = f.readline().lower().split()
-        for word in words:
-            result[word] = result.get(word, 0) + 1
-    result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
-    for k, v in result[:20]:
-        print(f"{k} {v}")
+    """Prints the top count listing for the given file."""
+    word_count = word_count_dict(filename)
+    word_count = sorted(word_count, key=lambda t: t[-1], reverse=True)[:20]
+
+    l = []
+    for w, c in word_count:
+        l.append(f"{w} {c}")
+
+    out = "\n".join(l)
+    return out
 
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
@@ -111,9 +119,9 @@ def main():
     option = sys.argv[1]
     filename = sys.argv[2]
     if option == "--count":
-        print_words(filename)
+        print(print_words(filename))
     elif option == "--topcount":
-        print_top(filename)
+        print(print_top(filename))
     else:
         print("unknown option: " + option)
         sys.exit(1)
