@@ -47,14 +47,38 @@ Seu trabalho é implementar as funções print_words() e depois print_top().
 import sys
 
 
+# def print_words(filename):
+#     result = {}
+#     with open(filename, "r") as f:
+#         words = f.readline().lower().split()
+#         for word in words:
+#             result[word] = result.get(word, 0) + 1
+#     result = sorted(result.items(), key=lambda k: (k[0]))
+#     for k, v in result:
+#         print(f'{k} {v}')
+#
+#
+# def print_top(filename):
+#     result = {}
+#     with open(filename, "r") as f:
+#         words = f.readline().lower().split()
+#         for word in words:
+#             result[word] = result.get(word, 0) + 1
+#     result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
+#     for k, v in result[:20]:
+#         print(f'{k} {v}')
+
 def print_words(filename):
-    result = {}
-    with open(filename, "r") as f:
-        words = f.readline().lower().split()
-        for word in words:
-            result[word] = result.get(word, 0) + 1
-    result = sorted(result.items(), key=lambda k: (k[0]))
-    for k, v in result:
+    d = {}
+    f = open(filename)
+    for line in f:
+        words = line.split()
+        for w in words:
+            w = w.lower()
+            d[w] = d.get(w, 0) + 1
+    f.close()
+    d = sorted(d.items(), key=lambda k: (k[0]))
+    for k, v in d:
         print(f'{k} {v}')
 
 
