@@ -68,18 +68,26 @@ import sys
 #     for k, v in result[:20]:
 #         print(f'{k} {v}')
 
-def print_words(filename):
+
+def word_count_dict(filename):
+    """Count words from filename
+    :return Dict[word] -> count
+    """
     d = {}
-    f = open(filename)
-    for line in f:
-        words = line.split()
-        for w in words:
-            w = w.lower()
-            d[w] = d.get(w, 0) + 1
-    f.close()
-    d = sorted(d.items(), key=lambda k: (k[0]))
-    for k, v in d:
-        print(f'{k} {v}')
+    with open(filename) as f:
+        content = f.read()
+    content = content.lower()
+    words = content.split()
+    for w in words:
+        d[w] = d.get(w, 0) + 1
+    return d
+
+
+def print_words(filename):
+    word_count = word_count_dict(filename)
+    words = sorted(word_count.keys())
+    for w in words:
+        print(w, word_count[w])
 
 
 def print_top(filename):
@@ -90,7 +98,7 @@ def print_top(filename):
             result[word] = result.get(word, 0) + 1
     result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
     for k, v in result[:20]:
-        print(f'{k} {v}')
+        print(f"{k} {v}")
 
 
 # A função abaixo chama print_words() ou print_top() de acordo com os
