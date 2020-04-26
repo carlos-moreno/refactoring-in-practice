@@ -45,28 +45,6 @@ Seu trabalho é implementar as funções print_words() e depois print_top().
 """
 
 import sys
-
-
-# def print_words(filename):
-#     result = {}
-#     with open(filename, "r") as f:
-#         words = f.readline().lower().split()
-#         for word in words:
-#             result[word] = result.get(word, 0) + 1
-#     result = sorted(result.items(), key=lambda k: (k[0]))
-#     for k, v in result:
-#         print(f'{k} {v}')
-#
-#
-# def print_top(filename):
-#     result = {}
-#     with open(filename, "r") as f:
-#         words = f.readline().lower().split()
-#         for word in words:
-#             result[word] = result.get(word, 0) + 1
-#     result = sorted(result.items(), key=lambda k: (k[1]), reverse=True)
-#     for k, v in result[:20]:
-#         print(f'{k} {v}')
 from collections import defaultdict
 
 
